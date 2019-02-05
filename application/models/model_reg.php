@@ -2,43 +2,76 @@
 
 class Model_Reg extends Model
 {
-    //public $login = $_POST['login'];
-    //public $password = $_POST['password'];
     
-    public function doRegister($login, $password)
-        {
+    public function doRegister()
+    {
         $link=mysqli_connect("localhost", "root", "", "parser_test");
+        if( $link == false )
+        {   
+            echo 'Connection failure!<br>';
+            echo mysqli_connect_error();
+            exit();
+        }
 
         if(isset($_POST['submit']))
         {
+            /*
             $err = [];
 
-            if(!preg_match("/^[a-zA-Z0-9]+$/",$_POST['login']))
+            if(!preg_match("/^[a-zA-Z]+$/",$_POST['name']))
             {
-                $err[] = "Логин может состоять только из букв английского алфавита и цифр";
+                $err[] = "Имя может состоять только из букв английского алфавита";
             }
 
-            if(strlen($_POST['login']) < 3 or strlen($_POST['login']) > 30)
+            if(strlen($_POST['name']) < 3 or strlen($_POST['name']) > 30)
             {
-                $err[] = "Логин должен быть не меньше 3-х символов и не больше 30";
+                $err[] = "Имя должно быть не меньше 3-х символов и не больше 30";
             }
 
-            $query = mysqli_query($link, "SELECT user_id FROM users WHERE user_login='".mysqli_real_escape_string($link, $_POST['login'])."'");
+            if(!preg_match("/^[a-zA-Z]+$/",$_POST['surname']))
+            {
+                $err[] = "Фамилия может состоять только из букв английского алфавита";
+            }
+
+            if(strlen($_POST['surname']) < 3 or strlen($_POST['surname']) > 30)
+            {
+                $err[] = "Фамилия должна быть не меньше 3-х символов и не больше 30";
+            }
+
+             if(!preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/",$_POST['email']))
+            {
+                $err[] = "Неправильный формат почтового ящика";
+            }
+
+            if(strlen($_POST['email']) < 3 or strlen($_POST['email']) > 50)
+            {
+                $err[] = "Почтовый ящик должен быть не меньше 3-х символов и не больше 50";
+            }
+
+            $query = mysqli_query($link, "SELECT user_id FROM users1 WHERE user_email='".mysqli_real_escape_string($link, $_POST['email'])."'");
             if(mysqli_num_rows($query) > 0)
             {
-                $err[] = "Пользователь с таким логином уже существует в базе данных";
+                $err[] = "За этим почтовым ящиком уже закреплён пользователь";
             }
-
+            
             if(count($err) == 0)
-            {
-
-                $login = $_POST['login'];
-
+            {*/
+                $name = $_POST['name'];
+                $surname = $_POST['surname'];
+                $email = $_POST['email'];
                 $password = md5(md5(trim($_POST['password'])));
+                if(isset($_POST['gender']))
+                    {$gender = $_POST['gender'];}
+                else{$gender = NULL;}
+                if(isset($_POST['bday']))
+                    {$bday = $_POST['bday'];}
+                else{$bday = NULL;}
 
-                mysqli_query($link,"INSERT INTO users SET user_login='".$login."', user_password='".$password."'");
-                header('Location:'.$host.'login'); exit();
+                mysqli_query($link,"INSERT INTO users1 SET user_name='".$name."', user_surname='".$surname."', user_email='".$email."', user_password='".$password."', user_gender='".$gender."', user_bday='".$bday."' ");
+
+            /*    //header('Location:'.$host.'login'); exit();
             }
+            
             
             else
             {
@@ -48,9 +81,7 @@ class Model_Reg extends Model
                     print $error."<br>";
 
                 }
-                echo "<br>Логин:".$_POST['login']."<br>";
-                echo "Пароль:".$_POST['password']."<br>";
-            }
+            }*/
         }
     }
 }

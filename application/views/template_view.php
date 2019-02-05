@@ -20,20 +20,22 @@
 <div class="container-fluid"> 
        <div class="header">
             <p>
-              <?php 
-              if(isset($_GET['title']))
-              echo "$_GET[title]";
-              else
-              echo "Погода в Запорожье сегодня"
-              ?>
+              Погода в Запорожье сегодня
             </p>
+            <p> <?php if (isset($_COOKIE)) {echo $_COOKIE['name'];} ?> </p>
         </div>
 
       <div class="row" style="background-color: lightblue;">
         <div class="col-lg-2 col-md-2 col-sm-2"></div> 
         <div class="col-lg-2 col-md-2 col-sm-2 lnk">
+
           <a href="/reg"><strong>Регистрация</strong></a>
+
+          <?php if (!isset($_COOKIE['id'])) {?>
+          / <a href="/login"><strong>Вход</strong></a>
+          <?php } ?>
         </div>        
+        
         <div class="col-lg-2 col-md-2 col-sm-2 lnk">
           <a href="/main"><strong>Погода</strong></a>
         </div> 
@@ -48,7 +50,6 @@
 
       <?php
       include 'application/views/'.$content_view;
-
       ?>
 
 

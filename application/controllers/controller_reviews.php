@@ -10,10 +10,15 @@ class Controller_Reviews extends Controller
 
 	function action_index()
 	{
-		//if ( @isset($_COOKIE)){
-		$data = $this->model->get_data();
-		$this->view->generate('reviews_view.php', 'template_view.php', $data);
-		//}else {$this->view->generate('unreg_view.php', 'template_view.php');}
+		if (isset($_COOKIE['id']))
+		{
+			$data = $this->model->get_data();
+			$this->view->generate('reviews_view.php', 'template_view.php', $data);
+		}
+		else 
+		{
+			$this->view->generate('unreg_view.php', 'template_view.php');
+		}
 	}
 }
 

@@ -1,6 +1,7 @@
 <?php
 
-interface Check{
+class Check_Model extends Model
+{
         public function check_login()
                 {
                     $link=mysqli_connect("localhost", "root", "", "parser_test");
@@ -26,6 +27,6 @@ interface Check{
                     {
                         return "BadCookies";
                     }
-                }
-            }
+          }
+}
 ?>
