@@ -1,38 +1,21 @@
 <div class="container">
-	<hr>
-	<div class="row">   
-	  <div class="col-lg-2 col-md-2 col-sm-0"></div>
-	  <div class="col-lg-10 col-md-10 col-sm-12">
-      <p><strong>Оставьте отзыв о моём сайте:</strong></p></div></div>
-      <hr>
-    
-    <form action="thankyou">
-    <div class="row">     
-    	<div class="col-lg-2 col-md-2 col-sm-0"></div>
-      <div class="col-lg-5 col-md-5 col-sm-6"> <p>Имя:</p> </div>        
-      <div class="col-lg-5 col-md-5 col-sm-6"> <input type="text" name="fb[name]" placeholder=" <?php if(isset($_GET['name'])) echo "$_GET[name]"?> "> </div> 
+  <hr>
+  <div class="row">   
+    <div class="col-lg-2 col-md-2 col-sm-0"></div>
+    <div class="col-lg-10 col-md-10 col-sm-12">
+      <p><strong>Оставьте отзыв о моём сайте:</strong></p>
+      <?php 
+      if(isset($_POST['submit']))
+      {
+        echo '<p style="border: 1px solid darkgreen; padding: 5px; background-color: green">Ваш отзыв успешно отправлен!</p>';
+      }
+      ?>
+      <form method="POST">
+        Ваше имя:<br><input type="text" name="name" placeholder="<?php if(isset($_GET['name'])) echo '$_GET[name]'; ?>" required><br>
+        Ваш email:<br><input type="email" name="email" placeholder="<?php if(isset($_GET['email'])) echo '$_GET[email]'; ?>" required><br>
+        Отзыв:<br><textarea name="body" rows="5" cols="40" placeholder="<?php if(isset($_GET['body'])) echo '$_GET[body]'; ?>" required></textarea><br>
+        <input type="submit" name="submit" value="Отправить">
+      </form>
     </div>
-    <hr>
-    
-    <div class="row">     
-      <div class="col-lg-2 col-md-2 col-sm-0"></div>
-      <div class="col-lg-5 col-md-5 col-sm-6"> <p>Email:</p> </div>        
-      <div class="col-lg-5 col-md-5 col-sm-6"> <input type="text" name="fb[email]" placeholder=" <?php if(isset($_GET['email'])) echo "$_GET[email]"?> "> </div> 
     </div>
-    <hr>
-
-    <div class="row">     
-      <div class="col-lg-2 col-md-2 col-sm-0"></div>
-      <div class="col-lg-5 col-md-5 col-sm-6"> <p>Отзыв:</p> </div>        
-      <div class="col-lg-5 col-md-5 col-sm-6"> <textarea rows="5" cols="30" name="fb[feedback]"></textarea> </div> 
     </div>
-    <hr>
-
-    <div class="row">     
-      <div class="col-lg-2 col-md-2 col-sm-0"></div>
-      <div class="col-lg-5 col-md-5 col-sm-6"></div>
-      <div class="col-lg-5 col-md-5 col-sm-6"> <input type="submit" name="doSubmit" value="Отправить!" > </div> 
-    </div>
-
-
-    </form>
