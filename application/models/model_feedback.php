@@ -4,6 +4,33 @@ class Model_Feedback extends Model
 {
 	public $reviews;
 
+	public function get_data()
+	{
+		$first_num = rand(1,10);
+		$second_num = rand(1,10);
+
+		$operators = array("+","-","*");
+		$operator = rand(0,count($operators) - 1);
+		$operator = $operators[$operator];
+
+		$answer = 0;
+		switch ($operator) {
+			case '+':
+				$answer = $first_num + $second_num;
+				break;
+			case '-':
+				$answer = $first_num - $second_num;
+				break;
+			case '*':
+				$answer = $first_num * $second_num;
+				break;}
+
+		return array('num1'=>$first_num,
+				 'op'=>$operator,
+				 'num2'=>$second_num,
+				 'answer'=>$answer);
+	}
+
 	public function put_data()
 	{
 		$link=mysqli_connect("localhost", "root", "", "parser_test");

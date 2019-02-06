@@ -9,11 +9,15 @@ class Controller_Feedback extends Controller
 
 	function action_index()
 	{
+		$data = $this->model->get_data();
+		
 		if(isset($_POST['submit']))
-		{
-			$this->model->put_data();
+		{	
+			if($_POST['realanswer'] == $_POST['answer'])
+				{$this->model->put_data();}
 		}
-		$this->view->generate('feedback_view.php', 'template_view.php');
+		
+		$this->view->generate('feedback_view.php', 'template_view.php', $data);
 	}
 }
 
