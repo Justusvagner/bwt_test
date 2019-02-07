@@ -15,7 +15,7 @@ class Model_Reg extends Model
 
         if(isset($_POST['submit']))
         {
-            /*
+            
             $err = [];
 
             if(!preg_match("/^[a-zA-Z]+$/",$_POST['name']))
@@ -38,7 +38,7 @@ class Model_Reg extends Model
                 $err[] = "Фамилия должна быть не меньше 3-х символов и не больше 30";
             }
 
-             if(!preg_match("/[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/",$_POST['email']))
+            if(!preg_match("/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}/",$_POST['email']))
             {
                 $err[] = "Неправильный формат почтового ящика";
             }
@@ -54,8 +54,13 @@ class Model_Reg extends Model
                 $err[] = "За этим почтовым ящиком уже закреплён пользователь";
             }
             
+            if(strlen($_POST['password']) < 3 or strlen($_POST['password']) > 32)
+            {
+                $err[] = "Пароль должен быть не меньше 3-х символов и не больше 32";
+            }
+
             if(count($err) == 0)
-            {*/
+            {
                 $name = $_POST['name'];
                 $surname = $_POST['surname'];
                 $email = $_POST['email'];
@@ -69,19 +74,8 @@ class Model_Reg extends Model
 
                 mysqli_query($link,"INSERT INTO users1 SET user_name='".$name."', user_surname='".$surname."', user_email='".$email."', user_password='".$password."', user_gender='".$gender."', user_bday='".$bday."' ");
 
-            /*    //header('Location:'.$host.'login'); exit();
             }
-            
-            
-            else
-            {
-                print "<b>При регистрации произошли следующие ошибки:</b><br>";
-                foreach($err AS $error)
-                {
-                    print $error."<br>";
-
-                }
-            }*/
+            return $err;
         }
     }
 }

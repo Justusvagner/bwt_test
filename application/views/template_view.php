@@ -22,7 +22,7 @@
             <p>
               Погода в Запорожье сегодня
             </p>
-            <p> <?php if (isset($_COOKIE)) {echo $_COOKIE['name'];} ?> </p>
+            <p> <?php if (isset($_COOKIE)) {print_r($_COOKIE);} ?> </p>
         </div>
 
       <div class="row" style="background-color: lightblue;">

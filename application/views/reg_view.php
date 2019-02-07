@@ -9,7 +9,7 @@
       <?php 
       if(isset($_POST['submit']))
       {
-        if (isset($data))
+        if (count($data)>0)
         {
           echo "<b>При регистрации произошли следующие ошибки:</b><br>";
           foreach($data AS $error)

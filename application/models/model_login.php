@@ -2,9 +2,6 @@
 
 class Model_Login extends Model
 {
-	//public $login = $_POST['login'];
-	//public $email = $_POST['email'];
-	//public $password = $_POST['password'];
 
 	public function doLogin()
 	{
@@ -43,8 +40,6 @@ class Model_Login extends Model
 		        setcookie("name", $data['user_name'], time()+60*60*24*30);
 		        setcookie("hash", $hash, time()+60*60*24*30,null,null,null,true); // httponly !!!
 
-		        // Переадресовываем браузер на страницу проверки нашего скрипта
-		        //header('Location:'.$host.'main'); exit();
 		    }
 
 		    else

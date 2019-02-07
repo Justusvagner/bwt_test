@@ -10,7 +10,9 @@ class Controller_Reviews extends Controller
 
 	function action_index()
 	{
-		if (isset($_COOKIE['id']))
+		$chk = $this->model->check_login();
+
+		if ($chk == "OK")
 		{
 			$data = $this->model->get_data();
 			$this->view->generate('reviews_view.php', 'template_view.php', $data);
