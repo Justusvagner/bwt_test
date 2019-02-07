@@ -33,6 +33,7 @@ class Model_Reviews extends Model
                         if(($userdata['user_hash'] !== $_COOKIE['hash']) or ($userdata['user_id'] !== $_COOKIE['id']))
                         {
                             setcookie("id", "", time() - 3600*24*30*12, "/");
+                            setcookie("name", "", time() - 3600*24*30*12, "/");
                             setcookie("hash", "", time() - 3600*24*30*12, "/");
                             return "BadHash";
                         }

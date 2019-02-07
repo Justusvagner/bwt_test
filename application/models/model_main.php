@@ -10,9 +10,13 @@ class Model_Main extends Model
 	{	   
 		$html = curl_get('http://www.gismeteo.ua/city/daily/5093/');
         $dom = str_get_html($html);
-        //foreach($dom->find('img') as $element) 
-   		//echo $element->src . '<br>';
-   		//return $dom;
+        	$data['atemp'] = $dom->find('dd.value.m_temp.c',0);
+            $data['wtr'] = $dom->find('td',2);
+            $data['wnd'] = $dom->find('dd.value.m_wind.ms',0);
+            $data['prs'] = $dom->find('dd.value.m_press.torr',0);
+            $data['hum'] = $dom->find('div.wicon.hum',0);
+            $data['wtemp'] = $dom->find('dd.value.m_temp.c',1);
+        return $data;
 	}
 
 	public function check_login()
@@ -26,6 +30,7 @@ class Model_Main extends Model
                         if(($userdata['user_hash'] !== $_COOKIE['hash']) or ($userdata['user_id'] !== $_COOKIE['id']))
                         {
                             setcookie("id", "", time() - 3600*24*30*12, "/");
+                            setcookie("name", "", time() - 3600*24*30*12, "/");
                             setcookie("hash", "", time() - 3600*24*30*12, "/");
                             return "BadHash";
                         }
@@ -36,7 +41,5 @@ class Model_Main extends Model
                     else
                     {return "BadCookies";}
           		}
-
-
 }
 ?>
