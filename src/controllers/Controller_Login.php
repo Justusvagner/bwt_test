@@ -1,4 +1,10 @@
 <?php
+namespace JustusParser\controllers;
+
+use JustusParser\core\Controller;
+use JustusParser\core\View;
+use JustusParser\models\Model_Login;
+
 class Controller_Login extends Controller
 {
     function __construct()

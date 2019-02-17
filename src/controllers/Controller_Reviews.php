@@ -1,12 +1,18 @@
 <?php
-class Controller_Main extends Controller
+namespace JustusParser\controllers;
+
+use JustusParser\core\Controller;
+use JustusParser\core\View;
+use JustusParser\models\Model_Reviews;
+
+class Controller_Reviews extends Controller
 {
     function __construct()
     {
-        $this->model = new Model_Main();
+        $this->model = new Model_Reviews();
         $this->view = new View();
     }
-
+    
 
     function actionIndex()
     {
@@ -14,7 +20,7 @@ class Controller_Main extends Controller
 
         if ($chk == "OK") {
             $data = $this->model->getData();
-            $this->view->generate('main_view.php', 'template_view.php', $data);
+            $this->view->generate('reviews_view.php', 'template_view.php', $data);
         } else {
             $this->view->generate('unreg_view.php', 'template_view.php');
         }

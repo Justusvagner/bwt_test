@@ -1,4 +1,9 @@
 <?php
+namespace JustusParser\controllers;
+
+use JustusParser\core\Controller;
+use JustusParser\core\View;
+
 class Controller_404 extends Controller
 {
     function actionIndex()

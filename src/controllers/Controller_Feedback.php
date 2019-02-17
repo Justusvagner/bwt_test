@@ -1,4 +1,10 @@
 <?php
+namespace JustusParser\controllers;
+
+use JustusParser\core\Controller;
+use JustusParser\core\View;
+use JustusParser\models\Model_Feedback;
+
 class Controller_Feedback extends Controller
 {
     function __construct()

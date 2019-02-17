@@ -1,4 +1,8 @@
 <?php 
+namespace JustusParser\models;
+
+use JustusParser\core\Model;
+
 class Model_Login extends Model
 {
 
@@ -18,7 +22,7 @@ class Model_Login extends Model
 
         $link=mysqli_connect("localhost", "root", "", "parser_test");
         if ($link == false ) {
-            echo 'Connection failure!<br>';
+            return "Connection failure!<br>";
             echo mysqli_connect_error();
             exit();
         }
@@ -37,7 +41,7 @@ class Model_Login extends Model
                 setcookie("name", $data['user_name'], time()+60*60*24*30);
                 setcookie("hash", $hash, time()+60*60*24*30, null, null, null, true); // httponly !!!
             } else {
-                return $data;
+                return "Неправильный логин или пароль!<br>";
             }
         }
     }

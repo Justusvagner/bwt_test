@@ -1,21 +1,27 @@
-<?php
-require 'includes/simple_html_dom.php';
-require 'includes/curl_query.php';
+<?php 
+namespace JustusParser\models;
 
-class Model_Main extends Model
+use JustusParser\core\Model;
+
+class Model_Reviews extends Model
 {
+    public $reviews;
 
     public function getData()
-    {       
-        $html = curl_get('http://www.gismeteo.ua/city/daily/5093/');
-        $dom = str_get_html($html);
-            $data['atemp'] = $dom->find('dd.value.m_temp.c', 0);
-            $data['wtr'] = $dom->find('td', 2);
-            $data['wnd'] = $dom->find('dd.value.m_wind.ms', 0);
-            $data['prs'] = $dom->find('dd.value.m_press.torr', 0);
-            $data['hum'] = $dom->find('div.wicon.hum', 0);
-            $data['wtemp'] = $dom->find('dd.value.m_temp.c', 1);
-        return $data;
+    {
+        $link=mysqli_connect("localhost", "root", "", "parser_test");
+        if ($link == false ) {    
+            echo 'Connection failure!<br>';
+            echo mysqli_connect_error();
+            exit();
+        }
+
+        $query = mysqli_query($link, "SELECT * FROM reviews ORDER BY `review_id` DESC");
+        while ($reviews[] = mysqli_fetch_assoc($query)) {
+              
+        }
+
+        return $reviews;
     }
 
     public function checkLogin()

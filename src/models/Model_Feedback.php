@@ -1,4 +1,7 @@
 <?php 
+namespace JustusParser\models;
+
+use JustusParser\core\Model;
 
 class Model_Feedback extends Model
 {

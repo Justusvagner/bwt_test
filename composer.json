@@ -1,5 +1,7 @@
 {
-    "require": {
-        "squizlabs/php_codesniffer": "*"
+    "autoload": {
+        "psr-4": {
+            "JustusParser\\": "src/"
+        }
     }
 }

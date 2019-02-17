@@ -1,4 +1,6 @@
 <?php
+namespace JustusParser\core;
+
 class Controller
 {
     public $model;

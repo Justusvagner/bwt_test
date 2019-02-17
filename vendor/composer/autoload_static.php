@@ -6,9 +6,44 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit0a1ee1f88dcc3d36f7b32301a00ae919
 {
+    public static $prefixLengthsPsr4 = array (
+        'J' => 
+        array (
+            'JustusParser\\' => 13,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'JustusParser\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
+    );
+
+    public static $classMap = array (
+        'JustusParser\\controllers\\Controller_404' => __DIR__ . '/../..' . '/src/controllers/Controller_404.php',
+        'JustusParser\\controllers\\Controller_Feedback' => __DIR__ . '/../..' . '/src/controllers/Controller_Feedback.php',
+        'JustusParser\\controllers\\Controller_Login' => __DIR__ . '/../..' . '/src/controllers/Controller_Login.php',
+        'JustusParser\\controllers\\Controller_Main' => __DIR__ . '/../..' . '/src/controllers/Controller_Main.php',
+        'JustusParser\\controllers\\Controller_Reg' => __DIR__ . '/../..' . '/src/controllers/Controller_Reg.php',
+        'JustusParser\\controllers\\Controller_Reviews' => __DIR__ . '/../..' . '/src/controllers/Controller_Reviews.php',
+        'JustusParser\\core\\Controller' => __DIR__ . '/../..' . '/src/core/Controller.php',
+        'JustusParser\\core\\Model' => __DIR__ . '/../..' . '/src/core/Model.php',
+        'JustusParser\\core\\Route' => __DIR__ . '/../..' . '/src/core/Route.php',
+        'JustusParser\\core\\View' => __DIR__ . '/../..' . '/src/core/View.php',
+        'JustusParser\\models\\Model_Feedback' => __DIR__ . '/../..' . '/src/models/Model_Feedback.php',
+        'JustusParser\\models\\Model_Login' => __DIR__ . '/../..' . '/src/models/Model_Login.php',
+        'JustusParser\\models\\Model_Main' => __DIR__ . '/../..' . '/src/models/Model_Main.php',
+        'JustusParser\\models\\Model_Reg' => __DIR__ . '/../..' . '/src/models/Model_Reg.php',
+        'JustusParser\\models\\Model_Reviews' => __DIR__ . '/../..' . '/src/models/Model_Reviews.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0a1ee1f88dcc3d36f7b32301a00ae919::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0a1ee1f88dcc3d36f7b32301a00ae919::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0a1ee1f88dcc3d36f7b32301a00ae919::$classMap;
 
         }, null, ClassLoader::class);
     }

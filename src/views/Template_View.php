@@ -48,7 +48,7 @@
     </div>
 
     <?php
-    require 'application/views/'.$content_view;
+    require 'src/views/'.$content_view;
     ?>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
