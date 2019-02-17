@@ -2,6 +2,7 @@
 namespace JustusParser\models;
 
 use JustusParser\core\Model;
+use PDO;
 
 class Model_Login extends Model
 {
@@ -19,23 +20,27 @@ class Model_Login extends Model
             return $code;
         }
 
-
-        $link=mysqli_connect("localhost", "root", "", "parser_test");
-        if ($link == false ) {
-            return "Connection failure!<br>";
-            echo mysqli_connect_error();
-            exit();
+        try {
+            $pdo = new PDO('mysql:host=localhost;dbname=parser_test', 'root', '');
+        }
+        catch (PDOException $e) {
+            echo "Unable to connect to the database";
         }
 
-
         if (isset($_POST['submit'])) {
-            $query = mysqli_query($link, "SELECT user_id, user_name, user_password FROM users1 WHERE user_email='".mysqli_real_escape_string($link, $_POST['email'])."' LIMIT 1");
-            $data = mysqli_fetch_assoc($query);
+            $statement = $pdo->prepare("SELECT user_id, user_name, user_password FROM users1");
+            $statement->execute(['user_email' => $pdo->quote($_POST['email'])]);
+            $data = $statement->fetch(PDO::FETCH_ASSOC);
 
             if ($data['user_password'] === md5(md5($_POST['password']))) {
                 $hash = md5(generateCode(10));
 
-                mysqli_query($link, "UPDATE users1 SET user_hash='".$hash."' WHERE user_id='".$data['user_id']."'");
+                $row = [
+                    'user_hash' => $hash,
+                    'user_id' => $data['user_id']
+                ];
+                $sql = "UPDATE users1 SET user_hash = :user_hash WHERE user_id = :user_id";
+                $status = $pdo->prepare($sql)->execute($row);
 
                 setcookie("id", $data['user_id'], time()+60*60*24*30);
                 setcookie("name", $data['user_name'], time()+60*60*24*30);

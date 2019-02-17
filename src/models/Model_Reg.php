@@ -2,17 +2,18 @@
 namespace JustusParser\models;
 
 use JustusParser\core\Model;
+use PDO;
 
 class Model_Reg extends Model
 {
     
     public function doRegister()
     {
-        $link=mysqli_connect("localhost", "root", "", "parser_test");
-        if ($link == false ) {   
-            echo 'Connection failure!<br>';
-            echo mysqli_connect_error();
-            exit();
+        try {
+            $pdo = new PDO('mysql:host=localhost;dbname=parser_test', 'root', '');
+        }
+        catch (PDOException $e) {
+            echo "Unable to connect to the database";
         }
 
         if (isset($_POST['submit'])) {
@@ -43,11 +44,14 @@ class Model_Reg extends Model
                 $err[] = "Почтовый ящик должен быть не меньше 3-х символов и не больше 50";
             }
 
-            $query = mysqli_query($link, "SELECT user_id FROM users1 WHERE user_email='".mysqli_real_escape_string($link, $_POST['email'])."'");
-            if (mysqli_num_rows($query) > 0) {
+            $statement = $pdo->prepare("SELECT * FROM users1 WHERE user_email = :user_email");
+            $statement->execute(['user_email' => $pdo->quote($_POST['email'])]);
+            $statement1 = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if ($statement1 != null) {
                 $err[] = "За этим почтовым ящиком уже закреплён пользователь";
             }
-            
+
             if (strlen($_POST['password']) < 3 or strlen($_POST['password']) > 32) {
                 $err[] = "Пароль должен быть не меньше 3-х символов и не больше 32";
             }
@@ -68,8 +72,22 @@ class Model_Reg extends Model
                     $bday = null;
                 }
 
-                mysqli_query($link, "INSERT INTO users1 SET user_name='".$name."', user_surname='".$surname."', user_email='".$email."', user_password='".$password."', user_gender='".$gender."', user_bday='".$bday."' ");
-
+                $sql = "INSERT INTO users1 SET user_name = :user_name,
+                    user_surname = :user_surname, 
+                    user_email = :user_email, 
+                    user_password = :user_password, 
+                    user_gender = :user_gender, 
+                    user_bday = :user_bday
+                ";
+                $row = [
+                    'user_name' => $name,
+                    'user_surname' => $surname,
+                    'user_email' => $email,
+                    'user_password' => $password,
+                    'user_gender' => $gender,
+                    'user_bday' => $bday
+                ];
+                $status = $pdo->prepare($sql)->execute($row);
             }
             return $err;
         }

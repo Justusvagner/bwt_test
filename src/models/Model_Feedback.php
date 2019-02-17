@@ -2,6 +2,7 @@
 namespace JustusParser\models;
 
 use JustusParser\core\Model;
+use PDO;
 
 class Model_Feedback extends Model
 {
@@ -37,12 +38,19 @@ class Model_Feedback extends Model
 
     public function putData()
     {
-        $link=mysqli_connect("localhost", "root", "", "parser_test");
-        if ($link == false ) {    
-            echo 'Connection failure!<br>';
-            echo mysqli_connect_error();
-            exit();
+        try {
+            $pdo = new PDO('mysql:host=localhost;dbname=parser_test', 'root', '');
         }
-        mysqli_query($link, "INSERT INTO `reviews` (`review_author`, `review_email`, `review_body`) VALUES ('".$_POST['name']."', '".$_POST['email']."', '".$_POST['body']."')");
+        catch (PDOException $e) {
+            echo "Unable to connect to the database";
+        }
+
+        $row = [
+            'review_author' => $_POST['name'],
+            'review_email' => $_POST['email'],
+            'review_body' => $_POST['body']
+        ];
+        $sql = "INSERT INTO reviews SET review_author = :review_author, review_email = :review_email, review_body = :review_body";
+        $status = $pdo->prepare($sql)->execute($row);
     }
 }

@@ -13,7 +13,6 @@ class Controller_Reviews extends Controller
         $this->view = new View();
     }
     
-
     function actionIndex()
     {
         $chk = $this->model->checkLogin();
